@@ -4,7 +4,7 @@
 
 using namespace std;
 
-enum logLevel {  // объявление перечисления для задания уровней логгирования
+enum logLevel {  // объявление перечисления для задания уровней логирования
     INFO,
     WARNING,
     ERROR
