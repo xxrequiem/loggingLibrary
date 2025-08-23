@@ -1,0 +1,12 @@
+build/
+*.o
+*.so
+*.a
+*.out
+*.log
+*.swp
+*.swo
+loggingLibrary.project
+loggingLibrary.workspace
+*.codelite
+.codelite/
