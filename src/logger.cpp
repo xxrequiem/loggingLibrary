@@ -38,3 +38,13 @@ void logger::choiceLogLevel(logLevel newLevel) {  // функция для ус�
     level = newLevel;
 }
 
+void logger::logging(logLevel level, const string& message) {  // функция для логирования
+    if (level < newLevel) {                                    // проверка соответствия минимальному уровню логирования
+        return 0;
+    }
+    
+    string fullLog = "Level: " + logLevelToString(level) + "; " + message + "\n";  // формирование строки для записи в лог
+    
+    cout << fullLog;                        // сообщение для отладки
+    logFile << fullLog << logFile.flush();  // запись строки в файл
+}
