@@ -33,3 +33,8 @@ logger::~logger() {           // деструктор для закрытия ф
         logFile.close();      // закрытие файла
     }
 }
+
+void logger::choiceLogLevel(logLevel newLevel) {  // функция для установки уровня логирования
+    level = newLevel;
+}
+
