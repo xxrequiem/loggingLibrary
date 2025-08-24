@@ -3,6 +3,7 @@
 #include <chrono>
 #include <iomanip>
 #include <stdexcept>
+#include <ctime>
 
 using namespace std;
 
@@ -38,9 +39,16 @@ void logger::choiceLogLevel(logLevel newLevel) {  // метод для уста�
     level = newLevel;
 }
 
-string logger::GetTime() {
-    auto currentTime = chrono::system_clock::now();  // получение текущего системного времени
-    time_t formattedCurrentTime = chrono::system_clock::to_time_t(currentTime);
+string logger::GetTime() {  // метод для получения системного времени
+    auto currentTime = chrono::system_clock::now();                              // получение текущего системного времени
+    time_t formattedCurrentTime = chrono::system_clock::to_time_t(currentTime);  // перевод системного времени в time_t формат
+    
+    tm localTime = localtime_r(&formattedCurrentTime);         // получение системного времени, переведенного в time_t формат
+    
+    ostringstream timeString;                                  // поток для дальнейшего форматирования
+    
+    timeString << put_time(localTime, "[%Y-%m-%d %H:%M:%S]");  // непосредственное форматирование времени
+    return timeString.str();
 }
 
 void logger::logging(logLevel level, const string& message) {  // основной метод логирования
@@ -48,20 +56,20 @@ void logger::logging(logLevel level, const string& message) {  // основно
         return 0;
     }
     
-    string fullLog = "Level: " + logLevelToString(level) + "; " + message + "\n";  // формирование строки для записи в лог
+    string fullLog = getTime() + "; " + "Level: " + logLevelToString(level) + "; " + message + "\n";  // формирование строки для записи в лог
     
     cout << fullLog;                        // сообщение для отладки
     logFile << fullLog << logFile.flush();  // запись строки в файл
 }
 
-void logger::info(const string& message) {     // вспомогательный метод для вызова logging с нужным уровнем логирования (info)
+void logger::info(const string& message) {     // вспомогательный метод для вызова logging с уровнем логирования info
     logging(logLevel::INFO, message);
 }
 
-void logger::warning(const string& message) {  // вспомогательный метод для вызова logging с нужным уровнем логирования (warning)
+void logger::warning(const string& message) {  // вспомогательный метод для вызова logging с уровнем логирования warning
     logging(logLevel::WARNING, message);
 }
 
-void logger::error(const string& message) {    // вспомогательный метод для вызова logging с нужным уровнем логирования (error)
+void logger::error(const string& message) {    // вспомогательный метод для вызова logging с уровнем логирования error
     logging(logLevel::ERROR, message);
 }
