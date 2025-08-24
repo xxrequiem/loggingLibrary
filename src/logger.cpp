@@ -22,7 +22,7 @@ string logLevelToString(logLevel level) {  // перевод "уровня ло�
 }
 
 logger::logger(const& string filename, logLevel level) {         // конструктор для инициализации потока и установки уровня логирования
-    logFile.open(filename, ios::app, ios::ate);                  // открытие файла для дозаписи
+    logFile.open(filename, ios::app, ios::ate);                  // открытие файла в режиме дозаписи
     if (!logFile.is_open()) {                                    // проверка корректности открытия файла
         throw runtime_error("Error: Failed to open the file!");  // исключение, если файл не удалось открыть
     }
@@ -34,11 +34,11 @@ logger::~logger() {           // деструктор для закрытия ф
     }
 }
 
-void logger::choiceLogLevel(logLevel newLevel) {  // функция для установки уровня логирования
+void logger::choiceLogLevel(logLevel newLevel) {  // метод для установки уровня логирования
     level = newLevel;
 }
 
-void logger::logging(logLevel level, const string& message) {  // функция для логирования
+void logger::logging(logLevel level, const string& message) {  // основной метод логирования
     if (level < newLevel) {                                    // проверка соответствия минимальному уровню логирования
         return 0;
     }
