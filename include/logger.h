@@ -15,8 +15,12 @@ public:
     logger(const string& filename, logLevel level);  // конструктор
     ~logger();                                       // деструктор 
 
-    void choiceLogLevel(logLevel newLevel);               // функция для изменения уровня логирования
-    void logging(logLevel level, const string& message);  // функция для логирования сообщений
+    void choiceLogLevel(logLevel newLevel);               // метод для изменения уровня логирования
+    void logging(logLevel level, const string& message);  // метод для логирования сообщений
+    
+    void info(const string& message);     // вспомогательный метод для info
+    void warning(const string& message);  // вспомогательный метод для warning
+    void error(const string& message);    // вспомогательный метод для error
     
 private:
     ofstream logFile;  // поток для записи логов в файл
