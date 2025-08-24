@@ -21,7 +21,7 @@ string logLevelToString(logLevel level) {  // перевод "уровня ло�
     throw invalid_argument("Error: Incorrect level value!");     // исключение, если выбран некорректный уровень логирования
 }
 
-logger::logger(const& string filename, logLevel level) {         // конструктор для инициализации потока и установки уровня логирования
+logger::logger(const string& filename, logLevel level) {         // конструктор для инициализации потока и установки уровня логирования
     logFile.open(filename, ios::app, ios::ate);                  // открытие файла в режиме дозаписи
     if (!logFile.is_open()) {                                    // проверка корректности открытия файла
         throw runtime_error("Error: Failed to open the file!");  // исключение, если файл не удалось открыть
@@ -47,4 +47,16 @@ void logger::logging(logLevel level, const string& message) {  // основно
     
     cout << fullLog;                        // сообщение для отладки
     logFile << fullLog << logFile.flush();  // запись строки в файл
+}
+
+void logger::info(const string& message) {     // вспомогательный метод для вызова logging с нужным уровнем логирования (info)
+    logging(logLevel::INFO, message);
+}
+
+void logger::warning(const string& message) {  // вспомогательный метод для вызова logging с нужным уровнем логирования (warning)
+    logging(logLevel::WARNING, message);
+}
+
+void logger::error(const string& message) {    // вспомогательный метод для вызова logging с нужным уровнем логирования (error)
+    logging(logLevel::ERROR, message);
 }
