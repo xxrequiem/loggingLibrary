@@ -38,6 +38,11 @@ void logger::choiceLogLevel(logLevel newLevel) {  // метод для уста�
     level = newLevel;
 }
 
+string logger::GetTime() {
+    auto currentTime = chrono::system_clock::now();  // получение текущего системного времени
+    time_t formattedCurrentTime = chrono::system_clock::to_time_t(currentTime);
+}
+
 void logger::logging(logLevel level, const string& message) {  // основной метод логирования
     if (level < newLevel) {                                    // проверка соответствия минимальному уровню логирования
         return 0;

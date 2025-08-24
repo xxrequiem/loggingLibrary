@@ -25,4 +25,5 @@ public:
 private:
     ofstream logFile;  // поток для записи логов в файл
     logLevel level;    // уровень логирования
+    string GetTime();  // время для записи в лог
 };
